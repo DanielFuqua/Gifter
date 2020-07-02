@@ -64,5 +64,18 @@ namespace Gifter.Controllers
             return NoContent();
         }
 
+        //https://localhost:5001/api/post/search?q=p&sortDesc=false
+        [HttpGet("search")]
+        public IActionResult Search(string q, bool sortDesc)
+        {
+            return Ok(_postRepository.Search(q, sortDesc));
+        }
+
+        //https://localhost:5001/api/post/hottest?since=2020-06-29
+        [HttpGet("hottest")]
+        public IActionResult Hottest(string since)
+        {
+            return Ok(_postRepository.Hottest(since));
+        }
     }
 }
