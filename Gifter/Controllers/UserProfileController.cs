@@ -9,22 +9,22 @@ namespace Gifter.Controllers
     [ApiController]
     public class UserProfileController : ControllerBase
     {
-        private readonly UserProfileRepository _UserProfileRepository;
+        private readonly UserProfileRepository _userProfileRepository;
         public UserProfileController(ApplicationDbContext context)
         {
-            _UserProfileRepository = new UserProfileRepository(context);
+            _userProfileRepository = new UserProfileRepository(context);
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_UserProfileRepository.GetAll());
+            return Ok(_userProfileRepository.GetAll());
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var userProfile = _UserProfileRepository.GetById(id);
+            var userProfile = _userProfileRepository.GetById(id);
             if (userProfile == null)
             {
                 return NotFound();
@@ -32,37 +32,33 @@ namespace Gifter.Controllers
             return Ok(userProfile);
         }
 
-        //[HttpGet("getbyuser/{id}")]
-        //public IActionResult GetByUser(int id)
-        //{
-        //    return Ok(_postRepository.GetByUserProfileId(id));
-        //}
 
-        //[HttpPost]
-        //public IActionResult Post(Post post)
-        //{
-        //    _postRepository.Add(post);
-        //    return CreatedAtAction("Get", new { id = post.Id }, post);
-        //}
 
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, Post post)
-        //{
-        //    if (id != post.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPost]
+        public IActionResult Post(UserProfile userProfile)
+        {
+            _userProfileRepository.Add(userProfile);
+            return CreatedAtAction("Get", new { id = userProfile.Id }, userProfile);
+        }
 
-        //    _postRepository.Update(post);
-        //    return NoContent();
-        //}
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, UserProfile userProfile)
+        {
+            if (id != userProfile.Id)
+            {
+                return BadRequest();
+            }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //    _postRepository.Delete(id);
-        //    return NoContent();
-        //}
+            _userProfileRepository.Update(userProfile);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _userProfileRepository.Delete(id);
+            return NoContent();
+        }
 
     }
 }
