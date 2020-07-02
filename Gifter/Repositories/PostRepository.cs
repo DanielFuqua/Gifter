@@ -17,7 +17,8 @@ namespace Gifter.Repositories
 
         public List<Post> GetAll()
         {
-            return _context.Post.Include(p => p.UserProfile).ToList();
+            var All = _context.Post.Include(p => p.UserProfile).Include(p => p.Comments).ToList();
+            return All;
         }
 
         public Post GetById(int id)
