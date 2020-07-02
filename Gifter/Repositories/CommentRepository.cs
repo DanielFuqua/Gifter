@@ -44,12 +44,12 @@ namespace Gifter.Repositories
             _context.SaveChanges();
         }
 
-        //public void Delete(int id)
-        //{
-        //    var post = GetById(id);
-        //    _context.Post.Remove(post);
-        //    _context.SaveChanges();
-        //}
+        public void Delete(int id)
+        {
+            var comment = GetById(id);
+            _context.Comment.Remove(comment);
+            _context.SaveChanges();
+        }
 
     }
 }
