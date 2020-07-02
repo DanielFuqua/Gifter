@@ -38,12 +38,12 @@ namespace Gifter.Controllers
             return Ok(_commentRepository.GetByPostId(id));
         }
 
-        //[HttpPost]
-        //public IActionResult Post(Post post)
-        //{
-        //    _postRepository.Add(post);
-        //    return CreatedAtAction("Get", new { id = post.Id }, post);
-        //}
+        [HttpPost]
+        public IActionResult Post(Comment comment)
+        {
+            _commentRepository.Add(comment);
+            return CreatedAtAction("Get", new { id = comment.Id }, comment);
+        }
 
         //[HttpPut("{id}")]
         //public IActionResult Put(int id, Post post)

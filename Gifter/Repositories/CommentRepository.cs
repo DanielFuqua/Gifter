@@ -32,11 +32,11 @@ namespace Gifter.Repositories
                             .ToList();
         }
 
-        //public void Add(Post post)
-        //{
-        //    _context.Add(post);
-        //    _context.SaveChanges();
-        //}
+        public void Add(Comment comment)
+        {
+            _context.Add(comment);
+            _context.SaveChanges();
+        }
 
         //public void Update(Post post)
         //{
