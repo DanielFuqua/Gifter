@@ -45,17 +45,17 @@ namespace Gifter.Controllers
             return CreatedAtAction("Get", new { id = comment.Id }, comment);
         }
 
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, Post post)
-        //{
-        //    if (id != post.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Comment comment)
+        {
+            if (id != comment.Id)
+            {
+                return BadRequest();
+            }
 
-        //    _postRepository.Update(post);
-        //    return NoContent();
-        //}
+            _commentRepository.Update(comment);
+            return NoContent();
+        }
 
         //[HttpDelete("{id}")]
         //public IActionResult Delete(int id)

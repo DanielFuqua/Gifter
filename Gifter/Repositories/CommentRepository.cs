@@ -38,11 +38,11 @@ namespace Gifter.Repositories
             _context.SaveChanges();
         }
 
-        //public void Update(Post post)
-        //{
-        //    _context.Entry(post).State = EntityState.Modified;
-        //    _context.SaveChanges();
-        //}
+        public void Update(Comment comment)
+        {
+            _context.Entry(comment).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
 
         //public void Delete(int id)
         //{
