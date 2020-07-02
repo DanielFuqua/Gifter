@@ -70,5 +70,12 @@ namespace Gifter.Controllers
         {
             return Ok(_postRepository.Search(q, sortDesc));
         }
+
+        //https://localhost:5001/api/post/hottest?since=2020-06-29
+        [HttpGet("hottest")]
+        public IActionResult Hottest(string since)
+        {
+            return Ok(_postRepository.Hottest(since));
+        }
     }
 }
