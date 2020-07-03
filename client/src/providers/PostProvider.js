@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export const PostContext = React.createContext();
 
@@ -18,8 +18,12 @@ export const PostProvider = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(post),
-    });
+    }).then(getAllPosts);
   };
+
+  useEffect(() => {
+    console.log("****  POST APPLICATION STATE CHANGED  ****");
+  }, [posts]);
 
   return (
     <PostContext.Provider value={{ posts, getAllPosts, addPost }}>

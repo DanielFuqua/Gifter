@@ -2,11 +2,13 @@ import React from "react";
 import "./App.css";
 import { PostProvider } from "./providers/PostProvider";
 import PostList from "./components/PostList";
+import AddPostForm from "./components/AddPostForm";
 
 function App() {
   return (
     <div className="App">
       <PostProvider>
+        <AddPostForm />
         <PostList />
       </PostProvider>
     </div>
