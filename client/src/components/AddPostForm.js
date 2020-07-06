@@ -5,45 +5,95 @@ import { Form, FormText, Row, FormGroup, Button, Input } from "reactstrap";
 const AddPostForm = () => {
   const { addPost } = useContext(PostContext);
 
-    const Title = useRef();
-    const ImageUrl = useRef();
-    const Caption = useRef();
+  const title = useRef("title")
+  const imageUrl = useRef("image")
+  const userId = useRef("userId")
+  const caption = useRef("caption")
+  const form = useRef("form")
 
-    const handleSubmit = () => {
+    const constructNewPost = () => {
         const newPost = {
-            Title: Title.current.value,
-            ImageUrl: ImageUrl.current.value,
-            Caption: Caption.current.value,
+            title: title.current.value,
+            imageUrl: imageUrl.current.value,
+            caption: caption.current.value,
             DateCreated: new Date(),
-            UserProfileId: 1
+            userProfileId: parseInt(userId.current.value),
         }
-        addPost(newPost);
+        addPost(newPost).then(() => form.current.reset);
     }
 
 
-  return (
-    <div className="container border pl-5 pr-5 mt-2 pb-1">
-        <Form>
-            <FormText className='h4'>Add a Post</FormText>
-            <Row className='row'>
-                <FormGroup className='row col mr-1'>
-                    <Input type='text' name='Title' id='postTitle' innerRef={Title}
-                        placeholder='Title' className='form-control form-control-sm'></Input>
-                </FormGroup>
-                <FormGroup className='row col'>
-                    <Input type='text' name='ImageUrl' id='postImageUrl' innerRef={ImageUrl}
-                        placeholder='ImageUrl' className='form-control form-control-sm'></Input>
-                </FormGroup>
-            </Row>
-            <FormGroup className='row'>
-                <Input type='text' name='Caption' id='postCaption' innerRef={Caption}
-                    placeholder='Caption' className='form-control form-control-sm'></Input>
-            </FormGroup>
-            <Button onClick={handleSubmit}>Submit</Button>
-        </Form>
-    </div>
-  
-  )
+    return (
+        <form className="postForm" ref={form}>
+            <h2 className="postForm__title">New Post</h2>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="postTame">Post title: </label>
+                    <input
+                        type="text"
+                        id="postTame"
+                        ref={title}
+                        required
+                        autoFocus
+                        className="form-control"
+                        placeholder="Post title"
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="postImage">Image Url: </label>
+                    <input
+                        type="text"
+                        id="postImage"
+                        ref={imageUrl}
+                        required
+                        autoFocus
+                        className="form-control"
+                        placeholder="Image url"
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="userProfileId">UserId: </label>
+                    <input
+                        type="integer"
+                        id="userProfileId"
+                        ref={userId}
+                        required
+                        autoFocus
+                        className="form-control"
+                        placeholder="User id"
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="caption">Caption: </label>
+                    <input
+                        type="text"
+                        id="caption"
+                        ref={caption}
+                        required
+                        autoFocus
+                        className="form-control"
+                        placeholder="User id"
+                    />
+                </div>
+            </fieldset>
+            <button type="submit"
+                onClick={
+                    evt => {
+                        evt.preventDefault() // Prevent browser from submitting the form
+                        constructNewPost()
+                    }
+                }
+                className="btn btn-primary">
+                Save Post
+            </button>
+        </form>
+    )
 };
 
 export default AddPostForm;

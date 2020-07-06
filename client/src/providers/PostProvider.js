@@ -21,12 +21,22 @@ export const PostProvider = (props) => {
     }).then(getAllPosts);
   };
 
+  const searchPosts = (searchTerm) => {
+    if (!searchTerm) {
+      getAllPosts()
+      return
+    }
+    return fetch(`api/post/search?q=${searchTerm}&sortDesc=true`)
+        .then((res) => res.json())
+        .then(setPosts)
+  }
+
   useEffect(() => {
     console.log("****  POST APPLICATION STATE CHANGED  ****");
   }, [posts]);
 
   return (
-    <PostContext.Provider value={{ posts, getAllPosts, addPost }}>
+    <PostContext.Provider value={{ posts, getAllPosts, addPost, searchPosts }}>
       {props.children}
     </PostContext.Provider>
   );
