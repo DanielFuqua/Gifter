@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export const PostContext = React.createContext();
 
 export const PostProvider = (props) => {
   const [posts, setPosts] = useState([]);
 
+  // const getPost = (id) => {
+  //   return fetch(`/api/post/${id}`).then((res) => res.json())
+  //   .then(setPosts);
+  // }
+  
   const getAllPosts = () => {
     return fetch("/api/post")
       .then((res) => res.json())
       .then(setPosts);
   };
+
+  const getPost = (id) => {
+    return fetch(`/api/post/${id}`).then((res) => res.json());
+};
 
   const addPost = (post) => {
     return fetch("/api/post", {
@@ -29,14 +38,13 @@ export const PostProvider = (props) => {
     return fetch(`api/post/search?q=${searchTerm}&sortDesc=true`)
         .then((res) => res.json())
         .then(setPosts)
-  }
+  }     
 
-  useEffect(() => {
-    console.log("****  POST APPLICATION STATE CHANGED  ****");
-  }, [posts]);
 
+
+  
   return (
-    <PostContext.Provider value={{ posts, getAllPosts, addPost, searchPosts }}>
+    <PostContext.Provider value={{ posts, getPost, getAllPosts, addPost, searchPosts }}>
       {props.children}
     </PostContext.Provider>
   );

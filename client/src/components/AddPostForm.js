@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from "react";
 import { PostContext } from "../providers/PostProvider";
-import { Form, FormText, Row, FormGroup, Button, Input } from "reactstrap";
+import { useHistory } from "react-router-dom";
 
 const AddPostForm = () => {
   const { addPost } = useContext(PostContext);
@@ -11,6 +11,8 @@ const AddPostForm = () => {
   const caption = useRef("caption")
   const form = useRef("form")
 
+    const history = useHistory();  
+
     const constructNewPost = () => {
         const newPost = {
             title: title.current.value,
@@ -19,8 +21,10 @@ const AddPostForm = () => {
             DateCreated: new Date(),
             userProfileId: parseInt(userId.current.value),
         }
-        addPost(newPost).then(() => form.current.reset);
-    }
+        addPost(newPost).then((p) => {
+            history.push("/");
+        });
+    };
 
 
     return (
@@ -78,7 +82,7 @@ const AddPostForm = () => {
                         required
                         autoFocus
                         className="form-control"
-                        placeholder="User id"
+                        placeholder="Caption"
                     />
                 </div>
             </fieldset>
