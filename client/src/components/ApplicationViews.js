@@ -4,6 +4,7 @@ import PostList from "./PostList";
 import AddPostForm from "./AddPostForm";
 import Post from "./Post";
 import PostDetails from "./PostDetails";
+import UserPosts from "./UserPosts";
 
 
 const ApplicationViews = () => {
@@ -18,9 +19,13 @@ const ApplicationViews = () => {
       </Route>
 
       
-      <Route path="/posts/:id">
+      <Route path="/posts/:id" exact>
         <PostDetails />
       </Route>  
+
+      <Route path="/posts/users/:id">
+        <UserPosts />
+      </Route> 
     </Switch>
   );
 };
